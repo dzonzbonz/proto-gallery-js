@@ -1,0 +1,199 @@
+.proto-gallery-overlay {
+    
+}
+.proto-gallery-overlay .proto-dialog-title {
+    display: none;
+}
+
+.proto-gallery-overlay .proto-dialog-content {
+    padding: 0; margin: 0; left: 0; top: 0; right: 0; bottom: 0;
+}
+
+.proto-gallery-overlay .proto-gallery-content {
+    overflow: hidden; width: 100%; height: 100%; position: relative;
+}
+
+.proto-gallery-overlay .proto-gallery-content {
+    overflow: hidden; width: 100%; height: 100%; position: relative;
+}
+
+.proto-gallery-overlay .proto-gallery-slider,
+.proto-gallery-overlay .proto-dialog-actions,
+.proto-gallery-overlay .proto-gallery-loader
+{
+    overflow: hidden; position: absolute; top: 0; left: 0; right: 0px; bottom: 0; height: auto;
+}
+
+.proto-gallery-overlay .proto-gallery-loader {
+    z-index: 3;
+    background-repeat: no-repeat; background-position: center center; background-size: 100% 100%;
+    background-image: url('loader.gif');
+    background-color: rgba(3, 3, 3, 0.75);
+}
+
+.proto-gallery-overlay .proto-dialog-actions > .proto-dialog-button,
+.proto-gallery-overlay .proto-dialog-actions > .proto-dialog-button i {
+    padding: 0; margin: 0;
+    width: 50px; 
+    height: 50px; 
+    line-height: 50px;
+    font-size: 30px;
+}
+.proto-gallery-overlay .proto-dialog-actions > .proto-dialog-button {
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    margin-top: -25px;
+}
+.proto-gallery-overlay .proto-dialog-actions > .proto-dialog-button.btn-nav-previous { left: 0px; }
+.proto-gallery-overlay .proto-dialog-actions > .proto-dialog-button.btn-nav-next { right: 0px; }
+
+.proto-gallery-overlay .proto-gallery-info {
+    overflow: hidden; position: absolute; top: 0; right: 0px; bottom: 0; width: 300px;
+    color: #000; 
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+/*.proto-gallery-canvas { 
+    position: fixed; z-index: 100; background-color: #000; background-color: rgba(0,0,0,0.7); 
+    width: 100%; height: 100%; top: 0; left: 0; padding: 0; margin: 0; display: none;
+}
+.proto-gallery-window { position: absolute; left: 20px; top: 20px; right: 20px; bottom: 20px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); }
+.proto-gallery-window.small { left: 25%; top: 25%; right: 25%; bottom: 25%; overflow: auto; }
+
+.proto-gallery-actions,
+.proto-gallery-content,
+.proto-gallery-loader {
+    position: absolute;
+    height: 100%;
+    width: 75%;
+    left: 0;
+}
+.proto-gallery-actions { z-index: 1; }
+.proto-gallery-actions .proto-gallery-button { height: 100%; }
+.proto-gallery-actions .proto-gallery-button > * { 
+    
+}
+
+.proto-gallery-prev { left: 0px; top: 0px; }
+.proto-gallery-next { right: 0px; top: 0px; }
+.proto-gallery-button {
+    position: absolute; display: block;
+    height: 50px; width: 50px; 
+    font-size: 20px; font-weight: 600; line-height: 45px;
+    text-align: center; background-color: transparent;
+}
+
+.proto-gallery-content {
+    position: absolute; background-color: #181818;
+    left: 0%; top: 0; right: 25%; bottom: 0; overflow: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.proto-gallery-aside {
+    position: absolute; background-color: #fff;
+    left: 75%; top: 0; right: 0%; bottom: 45px; overflow: auto; padding: 10px;
+    z-index: 2;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.proto-gallery-content:before, 
+.proto-gallery-content:after {
+    display: table;
+    line-height: 0;
+    content: "";
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.proto-gallery-content:after { clear: both; }
+.proto-gallery-content .attachment { 
+    float: left; width: 108px; height: 108px;
+    position: relative;
+    margin-left: 15px; margin-bottom: 15px;
+    cursor: pointer;
+}
+.proto-gallery-content .attachment .inner { 
+    width: 108px; height: 108px; background-size: contain; background-repeat: no-repeat; background-position: center center;
+    box-shadow: inset 0 0 15px rgba(0,0,0,.1),inset 0 0 0 1px rgba(0,0,0,.05);
+    background-color: #eee; border: 5px solid Transparent;
+}
+.proto-gallery-content .attachment .inner span { display: none; }
+.proto-gallery-content .attachment.selected .inner {  border: 5px solid Red;}
+
+.proto-gallery-loader img {
+    width: 128px;
+    height: 128px;
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    z-index: 2;
+    margin-left: -64px;
+    margin-top: -64px;
+}
+
+.proto-gallery-info { right: 0px; top: 45px; z-index: 3; display: none;}
+.proto-gallery-close { right: 0px; top: 0px; overflow: hidden; z-index: 3; }
+.proto-gallery-close a,
+.proto-gallery-info a { color: #010101; }
+.proto-gallery-title h3 {
+    margin: 0px; 
+    font-size: 14px;
+    line-height: 15px;
+    font-weight: 600;
+}
+
+.proto-gallery-aside {
+    position: absolute;
+    height: 100%;
+    width: 25%;
+    right: 0;
+    overflow: hidden;
+}
+.proto-gallery-aside .proto-gallery-title { display: none; }
+.proto-gallery-aside .gallery-photo { display: block; }
+.proto-gallery-aside .gallery-photo > *{ margin: 30px auto; }
+.proto-gallery-aside .proto-gallery-title,
+.proto-gallery-content { left: 0; top: 0; right: 45px; bottom: 0; }
+
+.proto-gallery-open .proto-gallery-aside .gallery-photo,
+.proto-gallery-open .proto-gallery-aside .proto-gallery-title { display: block; }
+.proto-gallery-open .proto-gallery-content { left: 0; top: 0; right: 45px; bottom: 0; }
+
+
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    display: none;
+    z-index: 4;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.overlay-content.open > * { z-index: 5; }
+.overlay > *, .overlay-content > *, .overlay .overlay-content { z-index: 4; }
+
+@media (max-width:768px){
+    .proto-gallery-info { display: block; }
+    .proto-gallery-content,
+    .proto-gallery-actions,
+    .proto-gallery-loader{ width: 90%; }
+    .proto-gallery-aside { transition: width 1s; width: 10%; left: inherit;}
+    .proto-gallery-aside .gallery-photo { display: none; }
+    .proto-gallery-open .proto-gallery-aside { width: 60%; display: block; }
+    .proto-gallery-close a,
+    .proto-gallery-info a { font-size: 30px; }
+}
+@media (max-width:480px){
+    .proto-gallery-loader img { width: 64px; height: 64px; margin-left: -32px; margin-top: -32px; }
+    .proto-gallery-content, .proto-gallery-actions, .proto-gallery-loader{ width: 80%; }
+    .proto-gallery-aside { width: 20%; left: inherit;}
+    .proto-gallery-open .proto-gallery-aside { width: 100%; display: block; }
+}
+*/
