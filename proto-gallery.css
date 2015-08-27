@@ -1,12 +1,18 @@
 .proto-gallery-overlay {
     
 }
+
+.proto-gallery-overlay .proto-dialog-inner {
+    
+}
+
 .proto-gallery-overlay .proto-dialog-title {
     display: none;
 }
 
 .proto-gallery-overlay .proto-dialog-content {
     padding: 0; margin: 0; left: 0; top: 0; right: 0; bottom: 0;
+    background-color: #111; border: none;
 }
 
 .proto-gallery-overlay .proto-gallery-content {
@@ -26,7 +32,7 @@
 
 .proto-gallery-overlay .proto-gallery-loader {
     z-index: 3;
-    background-repeat: no-repeat; background-position: center center; background-size: 100% 100%;
+    background-repeat: no-repeat; background-position: center center;
     background-image: url('loader.gif');
     background-color: rgba(3, 3, 3, 0.75);
 }
@@ -49,10 +55,10 @@
 .proto-gallery-overlay .proto-dialog-actions > .proto-dialog-button.btn-nav-next { right: 0px; }
 
 .proto-gallery-overlay .proto-gallery-info {
-    overflow: hidden; position: absolute; top: 0; right: 0px; bottom: 0; width: 300px;
-    color: #000; 
-    background-color: #fff;
-    background-color: rgba(255, 255, 255, 0.8);
+    overflow: hidden; position: absolute; top: 0; right: 0px; bottom: 0; width: 300px; z-index: 2;
+    color: #fff; 
+    background-color: #111;
+    background-color: rgba(17, 17, 17, 0.65);
 }
 /*.proto-gallery-canvas { 
     position: fixed; z-index: 100; background-color: #000; background-color: rgba(0,0,0,0.7); 

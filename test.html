@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Proto Dialog Test</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../proto-dialog-js/proto-dialog.css"/>
+        <script src="../proto-dialog-js/jquery.proto-dialog.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="proto-gallery.css"/>
+        <script type="text/javascript" src="jquery.proto-gallery.js"></script>
+        <script type="text/javascript" language="javascript">
+            $(document).ready(function() {
+                $('#proto-gallery-static').protoGallery({
+                    'source' : 'selector',
+                    'selector': {
+                        'slide': 'a',
+                        'thumbnail': 'img#src',
+                        'photo': '#data-photo',
+                        'title': 'img#alt',
+                        'description': 'div',
+                        'link': '#href'
+                    }
+                });
+                
+                $('body').protoGallery({
+                    'source' : null
+                });
+                
+                $('#open-gallery').on('click', function () {
+                    $('#proto-gallery-static').protoGallery('open');
+                });
+                
+                $('#load-gallery-1').on('click', function () {
+                    $('body').protoGallery('open', {
+                        'source' : 'collection',
+                        'collection': [
+                            {
+                                'photo': 'http://dev.wordpress/wp-content/uploads/2015/06/18360343026_1ee8e276d0_k.jpg'
+                            },
+                            {
+                                'photo': 'http://dev.wordpress/wp-content/uploads/2015/06/18206393669_4e469f2af3_k.jpg'
+                            }
+                        ]
+                    });
+                });
+                
+                $('#load-gallery-2').on('click', function () {
+                    $('body').protoGallery('open', {
+                        'source' : 'query',
+                        'query': '#proto-gallery-source a'
+                    });
+                });
+            });
+        </script>
+        <style>
+            body { text-align: center; }
+            button { background-color: #efefef; color: #333; border: none; padding: 10px 20px; }
+            button:hover { background-color: #fafafa; }
+            
+            .gallery > * {
+                display: inline-block; width: 100px; height: 100px; margin-left: 10px; margin-bottom: 10px;
+            }
+            .gallery > * img {
+                max-width: 100%; max-height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>prodo-dialog-js</h1>
+        <h2>Fixed Gallery</h2>
+        <div id="proto-gallery-static" class="gallery">
+            <a href="" data-photo="http://dev.wordpress/wp-content/uploads/2015/06/18360343026_1ee8e276d0_k.jpg">
+                <img src="http://dev.wordpress/wp-content/uploads/2015/06/18360343026_1ee8e276d0_k.jpg" />
+            </a>
+                
+            <a href="" data-photo="http://dev.wordpress/wp-content/uploads/2015/06/18206393669_4e469f2af3_k.jpg">
+                <img src="http://dev.wordpress/wp-content/uploads/2015/06/18360343026_1ee8e276d0_k.jpg" />
+            </a>
+                
+            <a href="" data-photo="http://dev.wordpress/wp-content/uploads/2015/06/18387880391_d585dba460_k.jpg">
+                <img src="http://dev.wordpress/wp-content/uploads/2015/06/18360343026_1ee8e276d0_k.jpg" />
+            </a>
+
+            <a href="" data-photo="http://dev.wordpress/wp-content/uploads/2015/06/18212701859_cd02c47b66_h.jpg">
+                <img src="http://dev.wordpress/wp-content/uploads/2015/06/18360343026_1ee8e276d0_k.jpg" />
+            </a>
+        </div>
+        <button id="open-gallery" type="button">Open Gallery</button>
+        
+        <h2>Dynamic Gallery</h2>
+        
+        <div id="proto-gallery-source" class="gallery">                
+            <a href="" data-photo="http://dev.wordpress/wp-content/uploads/2015/06/18387880391_d585dba460_k.jpg">
+                <img src="http://dev.wordpress/wp-content/uploads/2015/06/18360343026_1ee8e276d0_k.jpg" />
+            </a>
+
+            <a href="" data-photo="http://dev.wordpress/wp-content/uploads/2015/06/18212701859_cd02c47b66_h.jpg">
+                <img src="http://dev.wordpress/wp-content/uploads/2015/06/18360343026_1ee8e276d0_k.jpg" />
+            </a>
+        </div>
+        
+        <div id="proto-gallery-dynamic">
+            <button id="load-gallery-1" type="button">Load External - Collection</button>
+            <button id="load-gallery-2" type="button">Load External - Query</button>
+        </div>
+    </body>
+</html>
