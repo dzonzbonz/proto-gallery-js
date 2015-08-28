@@ -4,7 +4,6 @@
 
 - [Usage](#usage)
 - [Options](#options)
-    - [Actions](#actions)
     - [onAction](#onaction)
     - [onInit](#oninit)
     - [onOpen](#onopen)
@@ -12,6 +11,8 @@
 	- [onClose](#onclose)
 	- [onClosed](#onclosed)
     - [onResize](#onresize)
+    - [onChangeSlide](#onchangeslide)
+    - [onShowSlide](#onshowslide)
 - [Methods](#methods)
     - [open](#open)
     - [close](#close)
@@ -212,6 +213,20 @@ Type: `Function`
 Default: `function ($dialog) {}`
 
 This method is called each time when the screen size changes.
+
+### onChangeSlide
+
+Type: `Function`
+Default: `function (slideData, $canvas, oldSlideIndex, newSlideIndex) {}`
+
+This method is called before the slide changing begins. Return FALSE if you want to animate slide changing.
+
+### onShowSlide
+
+Type: `Function`
+Default: `function (slideData, $canvas) {}`
+
+This method is called after the slide changing only if `onChangeSlide` is not returning FALSE.
 
 ## Methods
 
