@@ -19,6 +19,9 @@
 - [Advanced usage](#advanced-usage)
     - [Dialog](#dialog)
     - [Controller](#controller)
+- [Samples](#samples)
+    - [Static](#static-setup)
+    - [Runtime](#dynamic-setup)
 
 ## Usage
 
@@ -369,7 +372,7 @@ if (_data) {
 
 ### Samples
 
-#### Default setup
+#### Static setup
 
 Define an element holding photos, apply widget to it.
 
