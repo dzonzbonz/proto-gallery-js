@@ -305,7 +305,7 @@
                     $slideTitle.html(_slide.title);
                     $slideDescription.html(_slide.description);
                     
-                    _instance.onShowSlide.call($target, _slide, $slider);
+                    _instance.onShowSlide.call($target, _slide, $canvas);
                 };
                 
                 $slide.load(function() {
