@@ -366,3 +366,79 @@ if (_data) {
     var $target = _data['target']; // === $('#proto-gallery')
 }
 ```
+
+### Samples
+
+#### Default setup
+
+Define an element holding photos, apply widget to it.
+
+```html
+<div id="proto-gallery-static" class="proto-gallery">
+    <a href="" data-photo="">
+        <img src="" title=""/>
+        <div></div>
+    </a>
+    <!-- more photos -->
+</div>
+<button id="open-gallery" type="button">Open Gallery</button>
+```
+
+```javascript
+/* ... */
+
+$('.proto-gallery').protoGallery({
+    'source' : 'selector',
+    'selector': {
+        'slide': 'a',
+        'thumbnail': 'img[src]',
+        'photo': '[data-photo]',
+        'title': 'img[alt]',
+        'description': 'div',
+        'link': '[href]'
+    }
+});
+
+/* ... */
+
+$('#open-gallery').on('click', function () {
+    $('#proto-gallery-static').protoGallery('open');
+});
+
+```
+
+#### Runtime setup
+
+You can without initialization call a open method by providing settings,
+Use any object for a dynamic gallery
+
+```html
+<button type="button" data-gallery="1001" class="dynamic-gallery">Load Gallery 1</button>
+<button type="button" data-gallery="1002" class="dynamic-gallery">Load Gallery 2</button>
+<button type="button" data-gallery="1003" class="dynamic-gallery">Load Gallery 3</button>
+```
+
+```javascript
+/* ... */
+
+$('.dynamic-gallery').on('click', function () {
+    var galleryID = $(this).attr('data-gallery');
+
+    $.ajax({
+        url: queryUrl,
+        dataType: 'json',
+        data: {
+            'gallery_id': galleryID
+        },
+        type: 'POST',
+        success: function (data, textStatus, jqXHR) {
+            $('body').protoGallery('open', {
+                'source': 'collection',
+                'collection': data
+            });
+        }
+    });
+
+});
+
+```

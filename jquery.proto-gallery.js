@@ -454,6 +454,11 @@
                     
                     _controller.firstSlide();
                 }
+                else {
+                    methods.init.call($(this), _settings);
+                    
+                    $(this).protoGallery('open');
+                }
             });
         },
         close: function( ) {
