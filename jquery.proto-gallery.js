@@ -32,7 +32,17 @@
      
 // selector finder
     var _getSelectorValue = function ($source, _selectorSchema) {
-        var _schema = _selectorSchema.split('#');
+        var _schemaTriger = _selectorSchema.split(']');
+        
+        var _schema = [];
+        if (_schemaTriger[0] !== _selectorSchema) {
+            _schema = _schemaTriger[0].split('[');
+        }
+        else {
+            _schema.push(_schemaTriger[0]);
+            _schema.push(false);
+        }
+        
         if (!_schema[1]) {
             return $source.find(_schema[0]).html();
         } else if (_schema[0].length == 0 && _schema[1]) {
@@ -89,6 +99,7 @@
                         'class': 'btn btn-default btn-nav btn-nav-next'
                     }
                 }, _instance.actions),
+                animation: _instance.animation,
                 onInit: function($dialog) {                    
                     _instance.onInit.call($target, $dialog, _this);
                 },
@@ -132,6 +143,12 @@
             this.noSlide();
             
             $canvas.protoDialog('close');
+        };
+        
+        this.isOpened = function () {
+            var dialogData = $canvas.data('protoDialog');
+                
+            return dialogData.controller.isOpened();;
         };
         
         this.setCollection = function (_collection) {
@@ -208,6 +225,10 @@
             return _slides[_index];
         };
 
+        this.setSlide = function(_index, _slideData) {
+            _slides[_index] = _slideData;
+        };
+
         this.noSlide = function () {
             $slider.find('> *').remove();
         };
@@ -232,18 +253,31 @@
             this.showSlide(_currentSlide);
         };
 
-        this.showSlide = function(_index) {
-            var _oldSlide = _currentSlide;
-            
+        this.getCurrentSlide = function () {
+            return _currentSlide;
+        };
+
+        this.setCurrentSlide = function (_index) {
             _currentSlide = _index;
+            
             if (_currentSlide < 0) {
                 _currentSlide = _slides.length - 1;
             }
+            
             _currentSlide = _currentSlide % _slides.length;
             
-            if (false !== _instance.onChangeSlide.call($target, _currentSlide, $canvas)) {
+            return _currentSlide;
+        };
+
+        this.showSlide = function(_index) {
+            var _oldSlide = _currentSlide;
+            
+            this.setCurrentSlide(_index);
+            
+            var _slide = _slides[_currentSlide];
+            
+            if (false !== _instance.onChangeSlide.call($target, _slide, $canvas, _oldSlide, _currentSlide)) {
                 
-                var _slide = _slides[_currentSlide];
                 var $slide = $('<img src="' + _slide['photo'] + '"/>');
                 $slide.css({
                     'position': 'absolute',
@@ -258,6 +292,7 @@
                     $loader.finish().fadeOut(500, function () {
                         $(this).hide();
                     });
+                    
                     $slide.fadeOut(0);
                     //_browserContent.empty();
                     $slider.append($slide);
@@ -336,18 +371,23 @@
                 'source' : 'selector', // selector, query, collection
                 'selector': {
                     'slide': 'a',
-                    'thumbnail': 'img#src',
-                    'photo': '#data-photo',
-                    'title': 'img#alt',
+                    'thumbnail': 'img[src]',
+                    'photo': '[data-photo]',
+                    'title': 'img[alt]',
                     'description': 'div',
-                    'link': '#href'
+                    'link': '[href]'
+                },
+                animation: {
+                    'open': false,
+                    'close': false,
+                    'prev': false,
+                    'next': false
                 },
                 'collection': null,
                 'query': null,
                 prevButton: '<',
                 nextButton: '>',
                 closeButton: 'X',
-                actions: {},
                 onInit: function($dialog) {
                 },
                 onOpen: function($dialog) {
@@ -359,8 +399,6 @@
                 onClosed: function($dialog) {
                 },
                 onResize: function($dialog) {
-                },
-                onAction: function(_action, $dialog) {
                 },
                 onChangeSlide: function(_slide, $dialog) {
                     return true;

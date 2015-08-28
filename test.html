@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Proto Dialog Test</title>
+        <title>Proto Gallery Test</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -22,11 +22,11 @@ and open the template in the editor.
                     'source' : 'selector',
                     'selector': {
                         'slide': 'a',
-                        'thumbnail': 'img#src',
-                        'photo': '#data-photo',
-                        'title': 'img#alt',
+                        'thumbnail': 'img[src]',
+                        'photo': '[data-photo]',
+                        'title': 'img[alt]',
                         'description': 'div',
-                        'link': '#href'
+                        'link': '[href]'
                     }
                 });
                 

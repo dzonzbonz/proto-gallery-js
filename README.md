@@ -23,38 +23,56 @@
 ## Usage
 
 ```html
-<link rel="stylesheet" type="text/css" href="proto-dialog.css"/>
+<link rel="stylesheet" type="text/css" href="proto-gallery.css"/>
+<script type="text/javascript" src="jquery.proto-gallery.js"></script>
 
 <!-- ... -->
 
-<script type="text/javascript" src="jquery.proto-dialog.js"></script>
-
-<!-- ... -->
-
-<div id="proto-dialog">
-    <div id="proto-dialog-header"></div>
-    <div id="proto-dialog-content"></div>
-    <div id="proto-dialog-footer"></div>
-<!-- ... -->
+<div id="proto-gallery">
+    <!-- Static Photos -->
+    <figure data-photo="<!-- Photo url -->">
+        <a href="<!-- Photo link -->">
+            <img src="<!-- Thumbnail url -->" alt="<!-- Photo title -->"/>
+        </a>
+        <figcaption><!-- Thumbnail description --></figcaption>
+    </figure>
+    
+    <!-- More statis photos -->
 </div>
 ```
 
-Add the UI.Layout module as a dependency to your application module:
-
 ```javascript
-$('#proto-dialog').protoDialog({ ... });
+$('#proto-dialog').protoGallery({
+    'source' : 'selector',
+    'selector': {
+        'slide': 'figure',
+        'thumbnail': 'img[src]',
+        'photo': '[data-photo]',
+        'title': 'img[alt]',
+        'description': 'figcaption',
+        'link': 'a[href]'
+    }
+});
 ```
 
 ## Options
 
 ```javascript
-var protoDialogOptions = {
-    actions: {
+var protoGalleryOptions = {
+    'source' : 'selector', // selector, query, collection
+    'selector': {
+        'slide': 'a',
+        'thumbnail': 'img[src]',
+        'photo': '[data-photo]',
+        'title': 'img[alt]',
+        'description': 'div',
+        'link': '[href]'
     },
-    animation: {
-        'open': false,
-        'close': false
-    },
+    'collection': null,
+    'query': null,
+    prevButton: '<',
+    nextButton: '>',
+    closeButton: 'X',
     onInit: function($dialog) {
     },
     onOpen: function($dialog) {
@@ -68,59 +86,77 @@ var protoDialogOptions = {
     onResize: function($dialog) {
     },
     onAction: function(_action, $dialog) {
+    },
+    onChangeSlide: function(_slide, $dialog) {
+        return true;
+    },
+    onShowSlide: function(_slide, $dialog) {
+        return true;
     }
 };
 ```
 
-### actions
+### source
 
-Type: `Object`
-Default: `{}`
+Type: `String`
+Default: `selector`
+Values: `selector|query|collection`
 
-Define buttons that you want on action bar
+#### Selector Source
+
+Define the source where the slides are going to bee looked for. Usually looked in $('#proto-gallery').find(settings.selector.slide)
 
 ```javascript
-var actions = {
-    'actionOne': {
-        'label': 'button label',
-        'class': 'html classes',
-        'on': {
-            'click': function(event, $dialog) {
-                $(this).html('custom - custom on click event');
-            },
-            'mouseover': function(event, $dialog) {
-                $(this).html('custom - custom on mouse over event');
-            }
+var settings = {
+    'source' : 'selector',
+    'selector': {
+        'slide': 'a',
+        'thumbnail': 'img[src]',
+        'photo': '[data-photo]',
+        'title': 'img[alt]',
+        'description': 'div',
+        'link': '[href]'
+    }
+};
+```
+
+#### Query Source
+
+Define the source where the slides are going to bee looked for. Usually looked in $('#proto-gallery').find(settings.selector.slide)
+
+```javascript
+var settings = {
+    'source' : 'query',
+    'query': '#proto-gallery a',
+    'selector': {
+        'slide': 'a', // not used
+        'thumbnail': 'img[src]',
+        'photo': '[data-photo]',
+        'title': 'img[alt]',
+        'description': 'div',
+        'link': '[href]'
+    }
+};
+```
+
+#### Collection Source
+
+Define the source where the slides are going to bee looked for. Usually looked in $('#proto-gallery').find(settings.selector.slide)
+
+```javascript
+var settings = {
+    'source' : 'collection',
+    'collection': [
+        {
+            'photo': 'photo url'
+            [,'element': $( /*Slide object*/ )]
+            [,'link': 'link value]
+            [,'thumbnail': 'thumbnail url']
+            [,'title': 'title text']
+            [,'description': 'description text']
         }
-    },
-    'actionTwo': {
-        'label': 'button label',
-        'class': 'html classes'
-    },
-    'actionTree': {
-        'label': 'button label',
-        'class': 'html classes'
-    }
-};
-```
-
-### onAction
-
-Type: `Function`
-Default: `function ($_action, _event, $dialog) {}`
-
-This method is called each time when an action button is clicked. If you want to have full control on action button events use the `on` key in `actions`.
-
-```javascript
-var onAction = function (action, _event, $dialog) {
-    switch(_action) {
-        case 'actionTwo':
-            /* Some specific action for button actionTwo */
-            break;
-        default:
-            $(this).html(_action + ' - auto click event');
-            break;
-    }
+        [, ...]
+    ]
 };
 ```
 
@@ -183,10 +219,7 @@ Take a look at the list of methods to control the dialog.
 This method is called to open a dialog manually.
 
 ```javascript
-$('#proto-dialog').protoDialog('open', {
-    ['title': ... ]
-    [, 'content': ... ]
-});
+$('#proto-dialog').protoDialog('open', {/* Settings */});
 ```
 
 ### close
@@ -202,7 +235,7 @@ $('#proto-dialog').protoDialog('close');
 This method is called when you want to override settings.
 
 ```javascript
-$('#proto-dialog').protoDialog('settings', { ... });
+$('#proto-dialog').protoDialog('settings', {/* Settings */});
 ```
 
 ## Advanced usage
@@ -216,20 +249,14 @@ When ever you have a `$dialog` variable in a `on***` function, this will be your
 The `<!-- Dialog content -->` is replaced by your target object that the widget is applied to.
 
 ```html
-<div class="proto-dialog-overlay">
-    <div class="proto-dialog-window">
-        <div class="proto-dialog-inner">
-            <button type="button" class="proto-dialog-close proto-dialog-button"></button>
-            <div class="proto-dialog-title">
-                <h3><!-- Title --></h3>
-            </div>
-            <div class="proto-dialog-content">
-                <!-- Dialog content -->
-            </div>
-            <div class="proto-dialog-actions">
-                <!-- Action buttons -->
-            </div>
-        </div>
+<div class="proto-gallery-content" id="proto-gallery-content">
+    <div class="proto-gallery-loader" id="proto-gallery-loader"></div>
+    <div class="proto-gallery-slider" id="proto-gallery-slider">
+        <!-- Slides are going to be here -->
+    </div>
+    <div class="proto-gallery-info" id="proto-gallery-info">
+        <h3 class="proto-gallery-slide-title" id="proto-gallery-slide-title"></h3>
+        <div class="proto-gallery-slide-description" id="proto-gallery-slide-description"></div>
     </div>
 </div>
 ```
@@ -251,30 +278,91 @@ var controllerInterface = {
      */
     'isOpened': function () {},
     /**
-     * Sets the title
-     */
-    'setTitle': function () {},
-    /**
-     * Sets the content
-     */
-    'setContent': function () {},
-    /**
      * Defines new settings
      */
-    'setSettings': function () {},
+    'setSettings': function (settings) {},
     /**
      * Get current settings
      */
     'getSettings': function () {},
+    /**
+     * Add collection array
+     */
+    'addCollection': function (collection) {},
+    /**
+     * Get item
+     */
+    'addCollectionItem': function (item) {},
+    /**
+     * Set photos, clear previous collection
+     */
+    'setSlides': function ($slides) {},
+    /**
+     * Attach slides, same as appending
+     */
+    'attachSlides': function ($slides) {},
+    /**
+     * Attach slide
+     */
+    'attachSlide': function ($slide) {},
+    /**
+     * Remove item
+     */
+    'removeCollectionItem': function (index) {},
+    /**
+     * Get slide count
+     */
+    'getSlideCount': function () {},
+    /**
+     * Get slide by index
+     */
+    'getSlide': function (index) {},
+    /**
+     * Set slide for index
+     */
+    'setSlide': function (index, slide) {},
+    /**
+     * Remove all slides from screen
+     */
+    'noSlide': function () {},
+    /**
+     * Show first slide
+     */
+    'firstSlide': function () {},
+    /**
+     * Show last slide
+     */
+    'lastSlide': function () {},
+    /**
+     * Show next slide
+     */
+    'nextSlide': function () {},
+    /**
+     * Show previous slide
+     */
+    'previousSlide': function () {},
+    /**
+     * Get current slide index
+     */
+    'getCurrentSlide': function () {},
+    /**
+     * Set current slide index, only changes the index, use show slide to show it
+     * @returns int current slide index
+     */
+    'setCurrentSlide': function (index) {},
+    /**
+     * Show slide by index
+     */
+    'showSlide': function (index) {}
 };
 
 /* Get dialog controller instance */
-var _data = $('#proto-dialog').data('protoDialog');
+var _data = $('#proto-gallery').data('protoGallery');
 
 // If the widget is initialized
 if (_data) {
     var _controller = _data['controller'];
     var _settings = _data['settings'];
-    var $target = _data['target']; // === $('#proto-dialog')
+    var $target = _data['target']; // === $('#proto-gallery')
 }
 ```
