@@ -42,7 +42,7 @@
 ```
 
 ```javascript
-$('#proto-dialog').protoGallery({
+$('#proto-gallery').protoGallery({
     'source' : 'selector',
     'selector': {
         'slide': 'figure',
@@ -169,9 +169,9 @@ This method is called when the dialog is initialized for the first time, and it 
 
 ```javascript
 var onInit: function ($dialog) {
-    var protoDialogContent = $dialog.find('.proto-dialog-content');
-    var dialogFooter = $dialog.find('#proto-dialog-footer');
-    var dialogHeader = $(this).find('#proto-dialog-header');
+    var protoGalleryContent = $dialog.find('.proto-gallery-content');
+    var dialogFooter = $dialog.find('#proto-gallery-footer');
+    var dialogHeader = $(this).find('#proto-gallery-header');
 };
 ```
 
@@ -219,7 +219,7 @@ Take a look at the list of methods to control the dialog.
 This method is called to open a dialog manually.
 
 ```javascript
-$('#proto-dialog').protoDialog('open', {/* Settings */});
+$('#proto-gallery').protoGallery('open', {/* Settings */});
 ```
 
 ### close
@@ -227,7 +227,7 @@ $('#proto-dialog').protoDialog('open', {/* Settings */});
 This method is called to close a dialog manually.
 
 ```javascript
-$('#proto-dialog').protoDialog('close');
+$('#proto-gallery').protoGallery('close');
 ```
 
 ### settings
@@ -235,7 +235,7 @@ $('#proto-dialog').protoDialog('close');
 This method is called when you want to override settings.
 
 ```javascript
-$('#proto-dialog').protoDialog('settings', {/* Settings */});
+$('#proto-gallery').protoGallery('settings', {/* Settings */});
 ```
 
 ## Advanced usage
@@ -245,7 +245,7 @@ The advanced usage is about taking full control of the dialog.
 ### Dialog
 
 Take a look at the dialog HTML structure in order to have a better view, and push your ideas further.
-When ever you have a `$dialog` variable in a `on***` function, this will be your `$('.proto-dialog-overlay')` object.
+When ever you have a `$dialog` variable in a `on***` function, this will be your `$('.proto-gallery-overlay')` object.
 The `<!-- Dialog content -->` is replaced by your target object that the widget is applied to.
 
 ```html
