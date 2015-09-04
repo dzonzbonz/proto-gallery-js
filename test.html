@@ -19,13 +19,14 @@ and open the template in the editor.
         <script type="text/javascript" language="javascript">
             $(document).ready(function() {
                 $('#proto-gallery-static').protoGallery({
+                    'title' : 'gallery',
                     'source' : 'selector',
                     'selector': {
                         'slide': 'a',
                         'thumbnail': 'img[src]',
                         'photo': '[data-photo]',
                         'title': 'img[alt]',
-                        'description': 'div',
+                        'description': '> span',
                         'link': '[href]'
                     }
                 });
@@ -36,6 +37,7 @@ and open the template in the editor.
                 
                 $('#load-gallery-1').on('click', function () {
                     $('body').protoGallery('open', {
+                        'title' : 'gallery',
                         'source' : 'collection',
                         'collection': [
                             {
@@ -50,8 +52,17 @@ and open the template in the editor.
                 
                 $('#load-gallery-2').on('click', function () {
                     $('body').protoGallery('open', {
+                        'title': 'Gallery',
                         'source' : 'query',
-                        'query': '#proto-gallery-source a'
+                        'query': '#proto-gallery-source a',
+                        'selector': {
+                            'slide': 'a',
+                            'thumbnail': 'img[src]',
+                            'photo': '[data-photo]',
+                            'title': 'img[alt]',
+                            'description': '> span',
+                            'link': '[href]'
+                        }
                     });
                 });
             });
@@ -67,6 +78,9 @@ and open the template in the editor.
             .gallery > * img {
                 max-width: 100%; max-height: 100%;
             }
+            .gallery a > span {
+                display: none;
+            }
         </style>
     </head>
     <body>
@@ -74,32 +88,39 @@ and open the template in the editor.
         <h2>Fixed Gallery</h2>
         <div id="proto-gallery-static" class="gallery">
             <a href="" data-photo="http://dev.wordpress/wp-content/uploads/2015/06/18360343026_1ee8e276d0_k.jpg">
-                <img src="http://dev.wordpress/wp-content/uploads/2015/06/18360343026_1ee8e276d0_k.jpg" />
+                <img src="http://dev.wordpress/wp-content/uploads/2015/06/18360343026_1ee8e276d0_k.jpg" alt="Sample 1"/>
             </a>
                 
             <a href="" data-photo="http://dev.wordpress/wp-content/uploads/2015/06/18206393669_4e469f2af3_k.jpg">
-                <img src="http://dev.wordpress/wp-content/uploads/2015/06/18360343026_1ee8e276d0_k.jpg" />
+                <img src="http://dev.wordpress/wp-content/uploads/2015/06/18206393669_4e469f2af3_k.jpg" alt="Sample 2"/>
             </a>
                 
             <a href="" data-photo="http://dev.wordpress/wp-content/uploads/2015/06/18387880391_d585dba460_k.jpg">
-                <img src="http://dev.wordpress/wp-content/uploads/2015/06/18360343026_1ee8e276d0_k.jpg" />
+                <img src="http://dev.wordpress/wp-content/uploads/2015/06/18387880391_d585dba460_k.jpg" alt="Sample 3"/>
             </a>
 
             <a href="" data-photo="http://dev.wordpress/wp-content/uploads/2015/06/18212701859_cd02c47b66_h.jpg">
-                <img src="http://dev.wordpress/wp-content/uploads/2015/06/18360343026_1ee8e276d0_k.jpg" />
+                <img src="http://dev.wordpress/wp-content/uploads/2015/06/18212701859_cd02c47b66_h.jpg" alt="Sample 4"/>
             </a>
         </div>
         <button id="open-gallery" type="button">Open Gallery</button>
         
         <h2>Dynamic Gallery</h2>
         
-        <div id="proto-gallery-source" class="gallery">                
+        <div id="proto-gallery-source" class="gallery">
             <a href="" data-photo="http://dev.wordpress/wp-content/uploads/2015/06/18387880391_d585dba460_k.jpg">
-                <img src="http://dev.wordpress/wp-content/uploads/2015/06/18360343026_1ee8e276d0_k.jpg" />
+                <img src="http://dev.wordpress/wp-content/uploads/2015/06/18387880391_d585dba460_k.jpg" alt="Sample 1"/>
+                <span>With Thumbnail Flip, you will have a thumbnail of the currently shown fullscreen image on the side that flips when navigating through the images. The big image will slide up or down depending where you are navigating to. The thumbnail will have a zoom and a fullscreen option, making the image in the background appear in fullscreen mode or as a complete image, resized to fit in the page.</span>
             </a>
 
             <a href="" data-photo="http://dev.wordpress/wp-content/uploads/2015/06/18212701859_cd02c47b66_h.jpg">
-                <img src="http://dev.wordpress/wp-content/uploads/2015/06/18360343026_1ee8e276d0_k.jpg" />
+                <img src="http://dev.wordpress/wp-content/uploads/2015/06/18212701859_cd02c47b66_h.jpg" alt="Sample 2"/>
+                <span>Let me introduce a fullscreen background slideshow plugin that allows you to use JQuery Cycle plugin as a fullscreen Slideshow, which supports almost of JQuery Cycle's.</span>
+            </a>
+
+            <a href="" data-photo="http://dev.wordpress/wp-content/uploads/2015/06/18206393669_4e469f2af3_k.jpg">
+                <img src="http://dev.wordpress/wp-content/uploads/2015/06/18206393669_4e469f2af3_k.jpg" alt="Sample 3"/>
+                <span>Let me introduce a fullscreen background slideshow plugin that allows you to use JQuery Cycle plugin as a fullscreen Slideshow, which supports almost of JQuery Cycle's.</span>
             </a>
         </div>
         

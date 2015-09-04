@@ -17,10 +17,11 @@
             $loader =  $('<div class="proto-gallery-loader" id="proto-gallery-loader"></div>');
             $slider =  $('<div class="proto-gallery-slider" id="proto-gallery-slider"></div>');
             $info =  $('<div class="proto-gallery-info" id="proto-gallery-info"></div>');
+            $slideInfoButton =  $('<button type="button" class="proto-dialog-button-info proto-dialog-button">X</button>');
             $slideTitle =  $('<h3 class="proto-gallery-slide-title" id="proto-gallery-slide-title"></h3>');
             $slideDescription =  $('<div class="proto-gallery-slide-description" id="proto-gallery-slide-description"></div>');
 
-            $info.append($slideTitle).append($slideDescription);
+            $info.append($slideInfoButton).append($slideTitle).append($slideDescription);
 
             $canvas.append($loader).append($slider).append($info);
 
@@ -67,6 +68,10 @@
             
             _instance = newSettings;
             
+            if (_instance['title']) {
+                this.setTitle(_instance['title']);
+            }
+            
             if (_instance['source']) {
                 switch (_instance['source']) {
                     case 'selector':
@@ -89,14 +94,16 @@
         this.open = function() {
             
             $canvas.protoDialog('open', {
-                actions: $.extend({
+                buttons: $.extend({
                     'prev': {
                         'label': _instance.prevButton,
-                        'class': 'btn btn-default btn-nav btn-nav-previous'
+                        'class': 'btn btn-default btn-nav btn-nav-previous',
+                        'type': 'control'
                     },
                     'next': {
                         'label': _instance.nextButton,
-                        'class': 'btn btn-default btn-nav btn-nav-next'
+                        'class': 'btn btn-default btn-nav btn-nav-next',
+                        'type': 'control'
                     }
                 }, _instance.actions),
                 animation: _instance.animation,
@@ -139,6 +146,12 @@
 //            $canvas.show();
         };
 
+        this.setTitle = function(newTitle) {
+            $canvas.protoDialog('settings', {
+                'title': newTitle
+            });
+        };
+
         this.close = function() {
             this.noSlide();
             
@@ -158,6 +171,8 @@
             _slideCounter = 0;
             
             this.addCollection(_collection);
+            
+            console.log(_slides);
         };
         
         this.addCollection = function (_collection) {
@@ -385,6 +400,7 @@
                 },
                 'collection': null,
                 'query': null,
+                'title': '',
                 prevButton: '<',
                 nextButton: '>',
                 closeButton: 'X',
