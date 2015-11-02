@@ -94,15 +94,15 @@
         this.open = function() {
             
             $canvas.protoDialog('open', {
-                buttons: $.extend({
+                buttons: $.extend(true, {
                     'prev': {
                         'label': _instance.prevButton,
-                        'class': 'btn btn-default btn-nav btn-nav-previous',
+                        'class': 'btn-nav btn-nav-previous',
                         'type': 'control'
                     },
                     'next': {
                         'label': _instance.nextButton,
-                        'class': 'btn btn-default btn-nav btn-nav-next',
+                        'class': 'btn-nav btn-nav-next',
                         'type': 'control'
                     }
                 }, _instance.actions),
@@ -147,9 +147,7 @@
         };
 
         this.setTitle = function(newTitle) {
-            $canvas.protoDialog('settings', {
-                'title': newTitle
-            });
+            $canvas.protoDialog('title', newTitle);
         };
 
         this.close = function() {
@@ -214,7 +212,7 @@
                 'description': _getSelectorValue($slide, _instance.selector.description)
             });
             
-            $slide.data('slideIndex', _slideCounter);
+            $slide.data('slideIndex', _slideCounter - 1);
 
             $slide.click(function(e) {
                 e.preventDefault();
@@ -487,6 +485,19 @@
                     // search for elements
                     var _controller = _data['controller'];
                     _controller.close();
+                }
+            });
+        },
+        title: function( newTitle ) {
+            return this.each(function() {
+                var $this = $(this);
+                var _data = $this.data('protoGallery');
+
+                // If the plugin hasn't been initialized yet
+                if (_data) {
+                    // search for elements
+                    var _controller = _data['controller'];
+                        _controller.setTitle( newTitle );
                 }
             });
         },
